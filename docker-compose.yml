@@ -1,4 +1,4 @@
-version: '3.8'
+version: '2'
 
 services:
   db:
@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       POSTGRES_DB: joomla
-      POSTGRES_USER: joomla-gian
+      POSTGRES_USER: joomla
       POSTGRES_PASSWORD: joomla-pass
     volumes:
       - db_data:/var/lib/postgresql/data
@@ -21,10 +21,11 @@ services:
     ports:
       - "8090:80"
     environment:
-      JOOMLA_DB_HOST: db
-      JOOMLA_DB_USER: joomla-gian
+      JOOMLA_DB_HOST: postgres
+      JOOMLA_DB_USER: joomla
       JOOMLA_DB_PASSWORD: joomla-pass
       JOOMLA_DB_NAME: joomla
+      JOOMLA_DB_TYPE: pgsql
     networks:
       - joomla-network
 
