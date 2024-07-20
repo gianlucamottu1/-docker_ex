@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: joomla
+      POSTGRES_USER: joomla
+      POSTGRES_PASSWORD: joomla123
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - joomla-network
+
+  joomla:
+    image: joomla:latest
+    container_name: joomla
+    restart: always
+    ports:
+      - "8090:80"
+    environment:
+      JOOMLA_DB_HOST: db
+      JOOMLA_DB_USER: joomla
+      JOOMLA_DB_PASSWORD: joomla123
+      JOOMLA_DB_NAME: joomla
+    networks:
+      - joomla-network
+
+networks:
+  joomla-network:
+    driver: bridge
+
+volumes:
+  db_data:
